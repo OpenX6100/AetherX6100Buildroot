@@ -2,8 +2,8 @@
 #
 # xara: a VARA HF compatible modem (github.com/x0rro/xara, MIT), run by
 # the GUI's XARA app. VARA is EA5HVK's modem; xara is x0rro's own,
-# independent program. Built with VARA's free speed levels only (never
-# the `registered` feature).
+# independent program. VARA's free speed levels unless
+# BR2_PACKAGE_XARA_REGISTERED (the app's Settings > Full speed).
 #
 # For now from randal007/xara: x0rro's 0.1.1 plus the X6100 work that
 # made it run on the radio (offered to x0rro, who merges himself):
@@ -45,9 +45,14 @@ define XARA_CARGO_CONFIG
 endef
 XARA_POST_EXTRACT_HOOKS += XARA_CARGO_CONFIG
 
+XARA_FEATURES = pulse
+ifeq ($(BR2_PACKAGE_XARA_REGISTERED),y)
+XARA_FEATURES += registered
+endif
+
 define XARA_BUILD_CMDS
 	cd $(@D) && $(XARA_CARGO_ENV) cargo build --offline --locked --release \
-		--target $(XARA_RUST_TARGET) --no-default-features --features pulse \
+		--target $(XARA_RUST_TARGET) --no-default-features --features $(subst $(space),$(comma),$(strip $(XARA_FEATURES))) \
 		-p xara --bin xara --bin xara-monitor
 endef
 

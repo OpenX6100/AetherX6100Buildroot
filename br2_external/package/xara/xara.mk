@@ -11,13 +11,15 @@
 # answers every call from start), the busy detector bypass, PSK frames
 # built and searched on several threads (the Cortex-A7 sent them late),
 # catching up when receiving falls behind, separate send and receive
-# buffers, the send buffer counted as TX latency, and the poll/NACK loop
-# fix. 919f5dd is what passed the radio tests (2026-11-02). Moves to
+# buffers, the send buffer counted as TX latency, the poll/NACK loop
+# fix, and --local-only (the host and KISS ports take local addresses
+# only: the VARA protocol has no password). 919f5dd passed the radio
+# tests (2026-11-02); 2a33e96 adds only --local-only. Moves to
 # x0rro's own release (libxara, 0.1.4) once it has these.
 #
 ################################################################################
 
-XARA_VERSION = 919f5dd4515d38fb7e656d5c5be495ffe5d03948
+XARA_VERSION = 2a33e96f824fb370a4e90491831a085237ede7cb
 XARA_SITE = $(call github,randal007,xara,$(XARA_VERSION))
 XARA_LICENSE = MIT
 XARA_LICENSE_FILES = LICENSE

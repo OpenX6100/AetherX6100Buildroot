@@ -1,0 +1,14 @@
+config BR2_PACKAGE_XARA
+	bool "xara"
+	depends on BR2_arm
+	depends on BR2_HOSTARCH = "x86_64" || BR2_HOSTARCH = "aarch64"
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	select BR2_PACKAGE_PULSEAUDIO
+	help
+	  xara, a VARA HF compatible modem (x0rro, MIT), for the
+	  GUI's XARA app (Winlink with WoAD, APRS with APRSdroid,
+	  from a phone over WiFi). VARA's free speed levels only.
+	  VARA is EA5HVK's modem; xara is x0rro's own program.
+	  Installs /usr/bin/xara and /usr/bin/xara-monitor.
+
+	  https://github.com/x0rro/xara

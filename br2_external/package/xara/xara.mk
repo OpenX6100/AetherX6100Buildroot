@@ -21,7 +21,9 @@
 
 XARA_VERSION = 2a33e96f824fb370a4e90491831a085237ede7cb
 XARA_SITE = $(call github,randal007,xara,$(XARA_VERSION))
-XARA_LICENSE = MIT
+# Its vendored crates (and Rust's std) are linked in too, mostly MIT or
+# Apache-2.0, as pkg-cargo says for its packages.
+XARA_LICENSE = MIT, vendored dependencies licenses probably not listed
 XARA_LICENSE_FILES = LICENSE
 XARA_DEPENDENCIES = host-xara-rust pulseaudio
 
@@ -33,16 +35,25 @@ XARA_DL_ENV = \
 	CARGO_HOME=$(BR_CARGO_HOME) \
 	PATH=$(XARA_RUST_PREFIX)/bin:$(BR_PATH)
 
+# The cross environment first (CC, PKG_CONFIG... for crates that build C
+# or probe libraries), as pkg-cargo does; ours after it, so its PATH wins.
+# The target directory fixed, so a CARGO_TARGET_DIR or a cargo config
+# above the build directory can't move the binaries.
 XARA_CARGO_ENV = \
+	$(TARGET_MAKE_ENV) \
+	$(TARGET_CONFIGURE_OPTS) \
 	CARGO_HOME=$(BR_CARGO_HOME) \
+	CARGO_TARGET_DIR=$(@D)/target \
 	PATH=$(XARA_RUST_PREFIX)/bin:$(BR_PATH) \
 	CARGO_TARGET_$(call UPPERCASE,$(XARA_RUST_TARGET))_LINKER=$(TARGET_CC) \
-	RUSTFLAGS="-C target-cpu=cortex-a7 -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib/pulseaudio"
+	RUSTFLAGS="$(if $(GCC_TARGET_CPU),-C target-cpu=$(GCC_TARGET_CPU)) -C link-arg=-Wl,-rpath-link=$(STAGING_DIR)/usr/lib/pulseaudio"
 
-# cargo vendor writes .cargo/config; newer cargo wants config.toml
+# cargo vendor writes .cargo/config; newer cargo wants config.toml, and
+# reads only the old name when both are there: the vendor settings go
+# into config.toml, kept with any of the source's own.
 define XARA_CARGO_CONFIG
-	if [ -f $(@D)/.cargo/config ] && [ ! -f $(@D)/.cargo/config.toml ]; then \
-		mv $(@D)/.cargo/config $(@D)/.cargo/config.toml; \
+	if [ -f $(@D)/.cargo/config ]; then \
+		cat $(@D)/.cargo/config >> $(@D)/.cargo/config.toml && rm $(@D)/.cargo/config; \
 	fi
 endef
 XARA_POST_EXTRACT_HOOKS += XARA_CARGO_CONFIG

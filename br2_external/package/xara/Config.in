@@ -1,6 +1,7 @@
 config BR2_PACKAGE_XARA
 	bool "xara"
 	depends on BR2_arm
+	depends on BR2_PACKAGE_HOST_RUSTC_TARGET_ARCH_SUPPORTS # its Rust target name
 	depends on BR2_HOSTARCH = "x86_64" || BR2_HOSTARCH = "aarch64"
 	depends on BR2_TOOLCHAIN_USES_GLIBC
 	select BR2_PACKAGE_PULSEAUDIO

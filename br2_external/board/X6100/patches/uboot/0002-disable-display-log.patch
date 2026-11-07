@@ -1,0 +1,20 @@
+diff --git a/include/configs/sunxi-common.h b/include/configs/sunxi-common.h
+index 49d5617f028..fae0776e7de 100644
+--- a/include/configs/sunxi-common.h
++++ b/include/configs/sunxi-common.h
+@@ -252,15 +252,9 @@
+ 	"stdin=serial\0"
+ #endif
+ 
+-#ifdef CONFIG_VIDEO
+-#define CONSOLE_STDOUT_SETTINGS \
+-	"stdout=serial,vidconsole\0" \
+-	"stderr=serial,vidconsole\0"
+-#else
+ #define CONSOLE_STDOUT_SETTINGS \
+ 	"stdout=serial\0" \
+ 	"stderr=serial\0"
+-#endif
+ 
+ #define PARTS_DEFAULT \
+ 	"name=loader1,start=8k,size=32k,uuid=${uuid_gpt_loader1};" \

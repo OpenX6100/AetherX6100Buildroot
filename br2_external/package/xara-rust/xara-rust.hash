@@ -1,0 +1,8 @@
+# From https://static.rust-lang.org/dist/<file>.sha256
+sha256  9819d0a32d56bd339585319c80260e332779f5541fd66838ab7e016d6c814819  rustc-1.97.1-x86_64-unknown-linux-gnu.tar.xz
+sha256  e1be5f5ff7f7f80ca506fb65770b759edbdc6d303781ed71c5de8ec8a8394779  cargo-1.97.1-x86_64-unknown-linux-gnu.tar.xz
+sha256  1c1e704ae80126b7de34f72ea2825f7fd01736dec20732faed47374b95282fba  rust-std-1.97.1-x86_64-unknown-linux-gnu.tar.xz
+sha256  b344b81f0cd4c2246c7da8b197fe7a339d7dd02bb15cb69b2524115d9c75224c  rustc-1.97.1-aarch64-unknown-linux-gnu.tar.xz
+sha256  8f70bcaccea5ba4db187c3fd4d64e24592b4e16af513497201f5909d61691dbe  cargo-1.97.1-aarch64-unknown-linux-gnu.tar.xz
+sha256  46aed8e63186350004d8ec6afca798811e6530b514352e5a8a26f3dc4939b3be  rust-std-1.97.1-aarch64-unknown-linux-gnu.tar.xz
+sha256  3823992fb0b7cb172b4a9eb8f03662013911ff00e1adb94e4c5fa00e4bd15686  rust-std-1.97.1-armv7-unknown-linux-gnueabihf.tar.xz

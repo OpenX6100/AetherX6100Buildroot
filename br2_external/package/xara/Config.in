@@ -1,0 +1,28 @@
+config BR2_PACKAGE_XARA
+	bool "xara"
+	depends on BR2_arm
+	depends on BR2_PACKAGE_HOST_RUSTC_TARGET_ARCH_SUPPORTS # its Rust target name
+	depends on BR2_HOSTARCH = "x86_64" || BR2_HOSTARCH = "aarch64"
+	depends on BR2_TOOLCHAIN_USES_GLIBC
+	select BR2_PACKAGE_PULSEAUDIO
+	help
+	  xara, a VARA HF compatible modem (x0rro, MIT), for the
+	  GUI's XARA app (Winlink with WoAD, APRS with APRSdroid,
+	  from a phone over WiFi). VARA is EA5HVK's modem; xara is
+	  x0rro's own program.
+	  Installs /usr/bin/xara and /usr/bin/xara-monitor.
+
+	  https://github.com/x0rro/xara
+
+if BR2_PACKAGE_XARA
+
+config BR2_PACKAGE_XARA_REGISTERED
+	bool "registered speed levels"
+	help
+	  Builds xara with its `registered` feature: VARA's paid
+	  speed levels, used when the XARA app's Settings > Full
+	  speed is on (off every time the app opens). For operators
+	  with a VARA licence. Without it xara runs the free levels
+	  only and refuses Full speed.
+
+endif
